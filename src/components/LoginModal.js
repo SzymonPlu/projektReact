@@ -25,8 +25,11 @@ function LoginModal({ onClose }) {
 
       const data = await response.json();
       console.log('Odpowiedź serwera po zalogowaniu:', data);
-      localStorage.setItem('token', data.token); // Zapis tokena do localStorage
-      localStorage.setItem('role', data.role); // Zapis roli użytkownika do localStorage
+
+      // Zapisz token i rolę użytkownika w pamięci lokalnej (localStorage)
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('role', data.role);
+
       console.log('Zalogowano pomyślnie jako:', username);
       console.log('Role użytkownika:', data.role);
       setError('');
