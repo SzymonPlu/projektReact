@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import SearchForm from './components/SearchForm';
 import SearchResults from './components/SearchResults';
@@ -11,10 +11,18 @@ function App() {
   const [maxDuration, setMaxDuration] = useState('');
   const [showDurationFilter, setShowDurationFilter] = useState(false);
   const [filteredMediaItems, setFilteredMediaItems] = useState([]);
-  const mediaItems = [
-    { type: 'video', src: '/assets/pexels-dronepilot-chile-20683835 (1080p).mp4', keywords: ['cat', 'funny'], duration: '2:30', name: 'Cat Video', fullPath: '/assets/pexels-dronepilot-chile-20683835 (1080p).mp4', dateAdded: '2024-03-12' },
-    { type: 'video', src: '/assets/pexels-rahime-gül-9844511 (1080p).mp4', keywords: ['dog', 'cute'], duration: '1:45', name: 'Dog Video', fullPath: '/assets/pexels-rahime-gül-9844511 (1080p).mp4', dateAdded: '2024-03-12' },
-  ];
+  const [mediaItems, setMediaItems] = useState([]);
+
+  useEffect(() => {
+    fetch('/api/videos', {
+      headers: {
+        'Authorization': 'Bearer YOUR_JWT_TOKEN' // Upewnij się, że masz poprawny token
+      }
+    })
+      .then(response => response.json())
+      .then(data => setMediaItems(data))
+      .catch(error => console.error('Error fetching videos:', error));
+  }, []);
 
   const handleSearch = (query) => {
     setSearchResults([`${query} result 1`, `${query} result 2`, `${query} result 3`]);

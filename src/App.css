@@ -136,3 +136,7 @@ button:hover + form {
 .search-bar form button:hover {
   background-color: #3a4f5c; /* Kolor bazowy ciemniejszy */
 }
+
+.selected {
+  background-color: #ADD8E6;
+}
